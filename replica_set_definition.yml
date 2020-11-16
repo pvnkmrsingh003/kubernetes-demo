@@ -1,0 +1,35 @@
+apiVersion: apps/v1
+kind: ReplicaSet
+metadata: 
+  name: myapp-replicaset
+  labels: 
+    app: myapp
+    tier: front-end
+spec: 
+  template: 
+    metadata: 
+      name: myapp-pod
+      labels: 
+        app: myapp
+        tier: front-end
+    spec: 
+      containers: 
+        - 
+          name: myapp-container
+          image: nginx
+          ports: 
+            - 
+              protocol: TCP
+              containerPort: 80
+          resources: 
+            requests: 
+              memory: "64Mi"
+              cpu: "250m"
+            limits: 
+              memory: "128Mi"
+              cpu: "500m"  
+  replicas: 1
+  selector: 
+    matchLabels: 
+      app: myapp
+      tier: front-end
